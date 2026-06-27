@@ -43,10 +43,10 @@ async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     try:
         # Use LiteLLM to get a response from the AI model
         response = completion(
-            model=os.getenv("LITELLM_MODEL", "gpt-3.5-turbo"),
+            model=os.getenv("LITELLM_MODEL", "qwen/qwen3.6-27b"),
             messages=messages,
-            api_key=os.getenv("OPENAI_API_KEY"), # Example for OpenAI, adjust for other models
-            # Add other LiteLLM parameters as needed, e.g., base_url, specific model keys
+            api_key=os.getenv("OPENAI_API_KEY"),
+            api_base=os.getenv("OPENAI_BASE_URL"),
         )
         ai_response = response.choices[0].message.content
         conversation_history[user_id].append({"role": "assistant", "content": ai_response})
